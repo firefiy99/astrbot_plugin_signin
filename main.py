@@ -1818,7 +1818,7 @@ class SigninPlugin(Star):
         desc = parts[3] if len(parts) >= 4 else ""
         delivery = parts[4] if len(parts) >= 5 else "请联系管理员"
 
-async with aiosqlite.connect(str(DB_PATH)) as db:
+        async with aiosqlite.connect(str(DB_PATH)) as db:
             cur = await db.execute(
                 """INSERT INTO shop_items
                    (name, cost, description, stock, delivery, enabled)
