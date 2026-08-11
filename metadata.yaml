@@ -1,0 +1,14 @@
+name: astrbot_plugin_signin
+display_name: 积分签到
+desc: 完整的积分体系插件：每日签到（带连续奖励）、积分查询、转账、排行榜、补签、可配置奖池抽奖。数据可由管理员任意调整，支持一键清零，全部流水可追溯。
+short_desc: 签到赚积分，可配置抽奖，管理可控可清零
+author: 小星萤
+version: 1.3.2
+repo: https://github.com/your_name/astrbot_plugin_signin
+support_platforms:
+  - aiocqhttp
+  - qq_official
+  - telegram
+  - lark
+  - discord
+astrbot_version: ">=4.16,<5"
