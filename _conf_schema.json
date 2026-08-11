@@ -1,0 +1,181 @@
+{
+  "base_points": {
+    "description": "每日签到基础积分（最低保障）",
+    "type": "int",
+    "default": 10
+  },
+  "continuous_bonus_per_day": {
+    "description": "连续签到每天额外奖励积分（连续 N 天额外 +N * 这个值）",
+    "type": "int",
+    "default": 2
+  },
+  "continuous_bonus_max": {
+    "description": "连续奖励积分封顶（防止连续 1000 天刷到天价）",
+    "type": "int",
+    "default": 30
+  },
+  "daily_sign_max_points": {
+    "description": "单次签到最多能拿到的积分（基础+连续奖励的硬上限）",
+    "type": "int",
+    "default": 50
+  },
+  "grace_hours": {
+    "description": "漏签宽限小时数。超过这个时间没签到才算断签，0 表示凌晨 0 点必须签",
+    "type": "int",
+    "default": 8
+  },
+  "transfer_min": {
+    "description": "单次转账最小积分",
+    "type": "int",
+    "default": 1
+  },
+  "transfer_max": {
+    "description": "单次转账最大积分（防误转）",
+    "type": "int",
+    "default": 10000
+  },
+  "transfer_fee_rate": {
+    "description": "转账手续费率，0.05 表示 5%（从付款方扣）",
+    "type": "float",
+    "default": 0.0,
+    "hint": "0 表示免手续费，0.05 表示 5%"
+  },
+  "makeup_cost": {
+    "description": "补签一次需要的积分（0 表示关闭补签功能）",
+    "type": "int",
+    "default": 50
+  },
+  "leaderboard_top_n": {
+    "description": "排行榜显示前 N 名",
+    "type": "int",
+    "default": 10
+  },
+  "records_per_page": {
+    "description": "积分记录每页显示条数",
+    "type": "int",
+    "default": 8
+  },
+  "admin_umo_list": {
+    "description": "插件管理员白名单（控制加减分、签到数据、清零及商城管理指令）",
+    "type": "string",
+    "hint": "推荐直接填写管理员的 user_id（QQ 场景即 QQ 号），也支持完整 unified_msg_origin。多个值可用英文/中文逗号、分号、空格或换行分隔；保存后请重载插件。",
+    "obvious_hint": true,
+    "default": ""
+  },
+  "welcome_message": {
+    "description": "用户首次签到时的欢迎语（支持 {nickname} 占位符）",
+    "type": "string",
+    "default": "欢迎 {nickname} 开启积分之旅！🎉"
+  },
+  "lottery_enabled": {
+    "description": "是否启用抽奖功能",
+    "type": "bool",
+    "default": true
+  },
+  "lottery_default_cost": {
+    "description": "每次抽奖消耗的积分",
+    "type": "int",
+    "default": 10
+  },
+  "lottery_daily_max_count": {
+    "description": "每人每天最多抽奖次数，0 表示不限",
+    "type": "int",
+    "default": 50
+  },
+  "lottery_pool": {
+    "description": "奖池配置列表（每个奖品包含 name、weight、reward）。修改后需重载插件生效。",
+    "type": "list",
+    "default": [
+      {"name": "🎉 谢谢参与", "weight": 50, "reward": 0},
+      {"name": "💰 小额积分", "weight": 30, "reward": 50},
+      {"name": "💎 大额积分", "weight": 15, "reward": 200},
+      {"name": "🏆 暴富积分", "weight": 4, "reward": 1000},
+      {"name": "✨ 欧皇积分", "weight": 1, "reward": 5000}
+    ]
+  },
+  "lottery_pool_editor": {
+    "description": "奖池可视化编辑列表（优先使用此项；修改后需重载插件）。",
+    "type": "template_list",
+    "templates": {
+      "prize": {
+        "name": "奖品",
+        "display_item": "name",
+        "hide_hint_in_list": true,
+        "items": {
+          "name": {"type": "string", "description": "奖品名称"},
+          "weight": {"type": "int", "description": "权重，必须 > 0", "default": 10},
+          "reward": {"type": "int", "description": "抽中获得的积分", "default": 0}
+        }
+      }
+    },
+    "default": [
+      {"__template_key": "prize", "name": "🎉 谢谢参与", "weight": 50, "reward": 0},
+      {"__template_key": "prize", "name": "💰 小额积分", "weight": 30, "reward": 50},
+      {"__template_key": "prize", "name": "💎 大额积分", "weight": 15, "reward": 200},
+      {"__template_key": "prize", "name": "🏆 暴富积分", "weight": 4, "reward": 1000},
+      {"__template_key": "prize", "name": "✨ 欧皇积分", "weight": 1, "reward": 5000}
+    ]
+  },
+  "lottery_pool_json": {
+    "description": "（旧版兼容字段）奖池配置 JSON 数组；仅在奖池配置为空时生效。",
+    "type": "text",
+    "default": ""
+  },
+  "shop_enabled": {
+    "description": "是否启用积分商城",
+    "type": "bool",
+    "default": true
+  },
+  "shop_default_items": {
+    "description": "默认商品列表（每个商品包含 name、cost、stock、description、delivery）。插件第一次启动时如果商品表为空，会自动导入这里的商品。修改后需重载插件生效。",
+    "type": "list",
+    "default": [
+      {"name": "🎖️ 群专属头衔", "cost": 500, "stock": -1, "description": "7 天专属头衔", "delivery": "请联系群主开通"},
+      {"name": "💎 1000 积分兑换券", "cost": 800, "stock": 10, "description": "立即获得 1000 积分", "delivery": "系统自动发放"},
+      {"name": "🎁 神秘小礼物", "cost": 200, "stock": -1, "description": "群主亲自送的小惊喜", "delivery": "请联系管理员"}
+    ]
+  },
+  "shop_default_items_editor": {
+    "description": "默认商品可视化编辑列表（优先使用此项；修改后需重载插件）。",
+    "type": "template_list",
+    "templates": {
+      "item": {
+        "name": "商品",
+        "display_item": "name",
+        "hide_hint_in_list": true,
+        "items": {
+          "name": {"type": "string", "description": "商品名称"},
+          "cost": {"type": "int", "description": "兑换需要的积分", "default": 100},
+          "stock": {"type": "int", "description": "库存数量，-1 表示无限", "default": -1},
+          "description": {"type": "string", "description": "商品描述", "default": ""},
+          "delivery": {"type": "string", "description": "兑换说明", "default": "请联系管理员"}
+        }
+      }
+    },
+    "default": [
+      {"__template_key": "item", "name": "🎖️ 群专属头衔", "cost": 500, "stock": -1, "description": "7 天专属头衔", "delivery": "请联系群主开通"},
+      {"__template_key": "item", "name": "💎 1000 积分兑换券", "cost": 800, "stock": 10, "description": "立即获得 1000 积分", "delivery": "系统自动发放"},
+      {"__template_key": "item", "name": "🎁 神秘小礼物", "cost": 200, "stock": -1, "description": "群主亲自送的小惊喜", "delivery": "请联系管理员"}
+    ]
+  },
+  "shop_default_items_json": {
+    "description": "（旧版兼容字段）默认商品 JSON 数组；仅在默认商品列表为空时生效。",
+    "type": "text",
+    "default": ""
+  },
+  "leaderboard_image_enabled": {
+    "description": "排行榜转图片（积分榜/签到榜用 html_render 渲染成图片，群里看着更整洁）",
+    "type": "bool",
+    "default": true
+  },
+  "signin_calendar_days": {
+    "description": "签到日历显示最近多少天（默认 30）",
+    "type": "int",
+    "default": 30
+  },
+  "image_width": {
+    "description": "排行榜/日历图片宽度（像素）",
+    "type": "int",
+    "default": 800
+  }
+}
