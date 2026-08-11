@@ -4,7 +4,7 @@ desc: 完整的积分体系插件：每日签到（带连续奖励）、积分�
 short_desc: 签到赚积分，可配置抽奖，管理可控可清零
 author: 小星萤
 version: 1.3.2
-repo: https://github.com/your_name/astrbot_plugin_signin
+repo: https://github.com/firefiy99/astrbot_plugin_signin
 support_platforms:
   - aiocqhttp
   - qq_official
