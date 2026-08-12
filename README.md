@@ -24,34 +24,6 @@
 
 ## 📌 当前版本：v1.3.2
 
-## 🎨 插件封面
-
-AstrBot 4.5+ 会在插件市场显示一个 logo（256×256，1:1 PNG）。本仓库自带：
-
-- **`astrbot_plugin_signin/logo.svg`** — 可缩放矢量图（推荐查看/编辑用）
-- **`astrbot_plugin_signin/logo.png`** — 占位文件，可被 `generate_logo.py` 覆盖
-
-**生成你的 logo.png（3 种方式任选）：**
-
-### 方式 1：用仓库自带的 Python 脚本（推荐）
-```bash
-# 进入项目根目录（在 Termux 或任何 Python 环境）
-python3 generate_logo.py
-```
-会生成一个橙红渐变圆角矩形 + 中心白色日历 + 7 格签到（3 绿 + 4 灰）的 logo.png。零依赖（只用 Python 标准库 zlib + struct）。
-
-### 方式 2：直接用 SVG 转 PNG
-```bash
-# 用任何 SVG → PNG 工具，比如：
-rsvg-convert -w 256 -h 256 astrbot_plugin_signin/logo.svg -o astrbot_plugin_signin/logo.png
-# 或在线工具：https://svgtopng.com/
-```
-
-### 方式 3：自己画一个
-任意 256×256 的 PNG，丢到 `astrbot_plugin_signin/logo.png` 即可。AstrBot 4.4 及以下没这功能，文件会被忽略，**不影响插件运行**。
-
-> 创作者提示：也可以把 `logo.svg` 用 Inkscape / Figma / Adobe Illustrator 编辑（修改颜色、加文字"签到"、改成你的群风格）后再导出 PNG。
-
 ## 📦 安装
 
 将整个 `astrbot_plugin_signin` 文件夹复制到 AstrBot 插件目录：
